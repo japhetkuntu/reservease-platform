@@ -1,5 +1,5 @@
 [build]
-  command = "cd reservease-frontends && pnpm install && pnpm run build:tenant"
+  command = "cd reservease-frontends && npm install && npm run build:tenant"
   publish = "reservease-frontends/apps/tenant-portal/dist"
 
 [build.environment]
