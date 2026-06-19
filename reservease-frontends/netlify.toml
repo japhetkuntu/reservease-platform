@@ -1,0 +1,10 @@
+[build]
+  base = "."
+  command = "npm install && npm run build --workspace=@reservease/tenant-portal"
+  publish = "apps/tenant-portal/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[dev]
+  framework = "vite"

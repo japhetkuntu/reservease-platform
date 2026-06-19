@@ -1,0 +1,19 @@
+{
+  "name": "reservease-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:tenant": "npm run dev --workspace=@reservease/tenant-portal",
+    "dev:accommodation-portal": "npm run dev --workspace=accommodation-portal",
+    "dev:admin": "npm run dev --workspace=@reservease/admin-portal",
+    "build:tenant": "npm run build --workspace=@reservease/tenant-portal",
+    "build:accommodation-portal": "npm run build --workspace=accommodation-portal",
+    "build:admin": "npm run build --workspace=@reservease/admin-portal",
+    "install:all": "npm install"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
