@@ -1,7 +1,6 @@
 [build]
-  base = "reservease-frontends"
-  command = "pnpm install && pnpm run build:tenant"
-  publish = "apps/tenant-portal/dist"
+  command = "cd reservease-frontends && pnpm install && pnpm run build:tenant"
+  publish = "reservease-frontends/apps/tenant-portal/dist"
 
 [build.environment]
   NODE_VERSION = "20"
