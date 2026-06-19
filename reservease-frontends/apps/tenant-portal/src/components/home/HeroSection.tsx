@@ -1,145 +1,140 @@
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, MapPin, Search as SearchIcon, Shield, Star, Users } from "lucide-react";
+import { ArrowRight, MapPin, Shield, Star, Users, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-bg-premium.png";
 
 const trustItems = [
-  { icon: Users, text: "500+ matched" },
-  { icon: Star, text: "4.9/5 rating" },
-  { icon: Shield, text: "Verified listings" },
+  { icon: Users, label: "500+ housed", sub: "across Ghana" },
+  { icon: Star, label: "4.9 / 5", sub: "average rating" },
+  { icon: Shield, label: "Verified only", sub: "every listing" },
 ];
 
 export function HeroSection() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
-      {/* Immersive Background */}
-      <div className="absolute inset-0 bg-background">
-        <motion.div
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="w-full h-full"
-        >
-          <img
-            src={heroImage}
-            alt="Breathtaking background"
-            className="w-full h-full object-cover object-center opacity-60 dark:opacity-40"
-            loading="eager"
-          />
-        </motion.div>
+    <section className="relative min-h-[100svh] md:min-h-screen flex flex-col justify-center overflow-hidden bg-background pt-0">
 
-        {/* Simple elegant overlay */}
-        <div className="absolute inset-0 bg-background/60" />
+      {/* ── Atmospheric background — pure CSS, no image, no Framer opacity ── */}
+      <div className="pointer-events-none select-none absolute inset-0 overflow-hidden">
+        {/* warm left blob */}
+        <div className="absolute -left-40 top-0 h-[700px] w-[700px] rounded-full bg-primary/8 blur-[120px]" />
+        {/* cool right blob */}
+        <div className="absolute -right-40 bottom-0 h-[600px] w-[600px] rounded-full bg-blue-500/6 blur-[120px]" />
+        {/* centre glow */}
+        <div className="absolute left-1/2 top-1/3 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[100px]" />
+
+        {/* subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
-      <div className="container relative z-10 py-10 md:py-0 flex flex-col items-center text-center px-4 sm:px-6">
-        {/* Animated Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 1.02, 0.73, 1] }}
-          className="group cursor-pointer mb-6 md:mb-8"
-        >
-          <div className="relative inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-lg bg-background border border-border transition-all duration-300">
-            <span className="relative z-10 text-xs md:text-sm font-medium text-foreground tracking-wide">
-              The smartest way to find a home
-            </span>
-          </div>
-        </motion.div>
+      {/* ── Main content ── */}
+      <div className="container mx-auto relative z-10 flex flex-col items-center text-center px-4 sm:px-6 py-16 md:py-0">
 
-        {/* Hero Typography */}
-        <div className="max-w-4xl mx-auto mb-8 md:mb-10 w-full">
-          <motion.h1
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.21, 1.02, 0.73, 1] }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-foreground leading-[1.1] tracking-tight px-2"
-          >
-            Finding your next place
-            <br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>
-            <span className="relative whitespace-nowrap inline-block mt-1 sm:mt-2 text-primary">
-              should feel like magic.
-            </span>
-          </motion.h1>
+        {/* Eyebrow pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-background/80 backdrop-blur-sm mb-8 md:mb-10 shadow-sm">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <span className="text-xs md:text-sm font-medium text-foreground tracking-wide">
+            Ghana's smartest accommodation search
+          </span>
         </div>
 
-        {/* Clean Search Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease: [0.21, 1.02, 0.73, 1] }}
-          className="w-full max-w-2xl mx-auto mb-10 md:mb-14 relative px-2"
-        >
+        {/* Headline */}
+        <h1 className="max-w-4xl mx-auto text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-foreground leading-[1.05] tracking-tight mb-6 md:mb-7 px-2">
+          Finding your next
+          <br className="hidden sm:block" />
+          <span className="sm:hidden"> </span>
+          place{" "}
+          <span className="relative inline-block">
+            <span className="relative z-10 text-primary">should feel</span>
+            {/* underline accent */}
+            <span className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-primary/30" />
+          </span>
+          {" "}like magic.
+        </h1>
+
+        {/* Sub-headline */}
+        <p className="max-w-xl mx-auto text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 md:mb-12 px-4">
+          Tell us what you need. We search verified listings and bring you up to 3
+          perfect matches — within 24 hours.
+        </p>
+
+        {/* ── Search bar ── */}
+        <div className="w-full max-w-2xl mx-auto mb-8 px-2 sm:px-0">
           <div
+            role="button"
+            tabIndex={0}
             onClick={() => navigate("/search?for=self")}
-            className="relative flex items-center h-16 sm:h-20 bg-background border border-border rounded-2xl cursor-pointer overflow-hidden transition-all duration-300 hover:border-primary/50"
+            onKeyDown={(e) => e.key === "Enter" && navigate("/search?for=self")}
+            className="group relative flex items-center h-[68px] sm:h-20 bg-background border-2 border-border hover:border-primary/60 rounded-2xl cursor-pointer overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <div className="flex-1 flex items-center px-4 sm:px-8">
-              <SearchIcon className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground mr-3 sm:mr-4 flex-shrink-0" />
-              <div className="flex flex-col items-start gap-1 sm:gap-0.5 text-left truncate w-full">
-                <span className="text-sm sm:text-lg font-semibold text-foreground truncate w-full">Where do you want to live?</span>
-                <span className="text-[10px] sm:text-sm text-muted-foreground truncate w-full">Any location • Any budget</span>
+            <div className="flex-1 flex items-center px-5 sm:px-7 gap-4">
+              <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+              <div className="flex flex-col items-start text-left min-w-0">
+                <span className="text-sm sm:text-base font-semibold text-foreground truncate w-full">
+                  Where do you want to live?
+                </span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate w-full">
+                  Tarkwa · Accra · Kumasi · any location
+                </span>
               </div>
             </div>
 
-            <div className="pr-2 sm:pr-4 h-full flex items-center">
-              <div className="flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary text-primary-foreground transition-transform duration-300 flex-shrink-0">
-                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="pr-3 sm:pr-4 flex-shrink-0">
+              <div className="flex items-center justify-center h-11 w-11 sm:h-13 sm:w-13 rounded-xl bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
+                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-0.5" />
               </div>
             </div>
           </div>
 
-          <div className="mt-5 flex flex-wrap justify-center items-center gap-2 md:gap-3 relative z-20">
-             <span className="text-xs md:text-sm text-muted-foreground font-medium">Searching for a friend?</span>
-             <Button
-               variant="link"
-               onClick={() => navigate("/search?for=others")}
-               className="h-auto p-0 text-xs md:text-sm font-bold text-primary hover:text-primary transition-colors underline-offset-4 hover:underline pointer-events-auto"
-             >
-               Start a delegated search →
-             </Button>
-          </div>
-        </motion.div>
+          {/* Delegated search link */}
+          <p className="mt-4 text-sm text-muted-foreground text-center">
+            Searching for someone else?{" "}
+            <button
+              onClick={() => navigate("/search?for=others")}
+              className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+            >
+              Search on their behalf →
+            </button>
+          </p>
+        </div>
 
-        {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-x-8 sm:gap-y-4 pt-6 md:pt-10 border-t border-white/5 w-full"
-        >
+        {/* ── Trust strip ── */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-2">
           {trustItems.map((item, i) => (
-            <div key={i} className="flex items-center justify-center gap-3 bg-muted px-4 py-2.5 rounded-lg border border-border w-full sm:w-auto">
-              <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10">
-                <item.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+            <div
+              key={i}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-muted/60 border border-border/60 w-full sm:w-auto"
+            >
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 flex-shrink-0">
+                <item.icon className="h-4 w-4 text-primary" />
               </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground">{item.text}</span>
+              <div className="text-left">
+                <span className="block text-sm font-semibold text-foreground leading-none">
+                  {item.label}
+                </span>
+                <span className="block text-xs text-muted-foreground mt-0.5">
+                  {item.sub}
+                </span>
+              </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-        <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 z-20"
-      >
-        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-[0.2em]">
-          Scroll to discover
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-lg border border-border flex items-start justify-center pt-2"
-        >
-          <div className="w-1 h-2 rounded-full bg-muted-foreground" />
-        </motion.div>
-      </motion.div>
+      {/* ── Scroll hint ── */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-20 text-muted-foreground">
+        <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-border flex items-start justify-center pt-1.5">
+          <div className="w-0.5 h-2 rounded-full bg-muted-foreground animate-bounce" />
+        </div>
+      </div>
     </section>
   );
 }
