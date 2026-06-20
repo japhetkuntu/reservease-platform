@@ -139,11 +139,16 @@ function ToggleCard({
   formData: any; updateField: (f: string, v: any) => void;
 }) {
   const value = !!formData[field];
+  // FIX: outer element is a div, not a button — Switch renders a <button> internally
+  // and <button> inside <button> is invalid HTML that crashes React.
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => updateField(field, !value)}
+      onKeyDown={(e) => e.key === "Enter" && updateField(field, !value)}
       className={cn(
-        "p-4 rounded-xl border text-left transition-all flex items-center justify-between gap-4",
+        "p-4 rounded-xl border text-left transition-all flex items-center justify-between gap-4 cursor-pointer select-none",
         value ? "bg-primary/8 border-primary" : "bg-card border-border hover:border-primary/40"
       )}
     >
@@ -152,16 +157,23 @@ function ToggleCard({
           "h-9 w-9 rounded-xl flex items-center justify-center shrink-0 transition-colors",
           value ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
         )}>
-          {typeof Icon === "function" ? <Icon className="w-4 h-4" /> : Icon}
+          {/* FIX: always treat icon as a component — Lucide icons are always functions */}
+          {Icon && typeof Icon === "function" ? <Icon className="w-4 h-4" /> : null}
         </div>
         <div>
           <p className="font-semibold text-sm text-foreground leading-tight">{label}</p>
           <p className="text-xs text-muted-foreground mt-0.5 leading-tight">{desc}</p>
         </div>
       </div>
-      <Switch checked={value} onCheckedChange={(v) => updateField(field, v)}
-        className="data-[state=checked]:bg-primary shrink-0" />
-    </button>
+      {/* stopPropagation so clicking the switch doesn't also fire the div's onClick */}
+      <div onClick={(e) => e.stopPropagation()}>
+        <Switch
+          checked={value}
+          onCheckedChange={(v) => updateField(field, v)}
+          className="data-[state=checked]:bg-primary shrink-0"
+        />
+      </div>
+    </div>
   );
 }
 
