@@ -201,6 +201,17 @@ export interface ApiMatchReason {
   type: "positive" | "neutral" | "warning";
 }
 
+export interface ApiScoreBreakdown {
+  location?: number;
+  budget?: number;
+  roomType?: number;
+  features?: number;
+  resilience?: number;
+  payment?: number;
+  trust?: number;
+  lifestyle?: number;
+}
+
 export interface ApiAccommodationMatch {
   id: string;
   alias: string;
@@ -212,11 +223,13 @@ export interface ApiAccommodationMatch {
   matchReasons: ApiMatchReason[];
   images: string[];
   hasVideo: boolean;
+  videoUrl?: string;
+  youtubeUrl?: string;
   isAlternative?: boolean;
   location: ApiAccommodationLocation;
   paymentInfo?: string;
 
-  // New Intelligence Fields for UI
+  // Intelligence fields
   isVerified: boolean;
   backupPower: string;
   waterReliability: string;
@@ -227,6 +240,10 @@ export interface ApiAccommodationMatch {
   bathroomType: string;
   securityFeatures: string[];
   googleMapsUrl?: string;
+
+  // Match score — 0-100 normalised score from backend; breakdown per dimension
+  matchScore?: number;
+  breakdown?: ApiScoreBreakdown;
 }
 
 export interface ApiSearchAttempt {

@@ -2,13 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
-  ThumbsUp,
-  ThumbsDown,
   Play,
   Check,
-  Phone,
-  MessageCircle,
-  ExternalLink,
   ChevronDown,
   ChevronUp,
   ChevronLeft,
@@ -22,12 +17,13 @@ import {
   Zap,
   Droplet,
   ShieldCheck,
-  Shield,
   Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AccommodationMatch } from "@/contexts/RequestContext";
 import { AvailabilityDisclaimer } from "./AvailabilityDisclaimer";
+import { MatchScoreCompact } from "@/components/features/MatchScoreBadge";
+import { useSavedListings } from "@/hooks/useSavedListings";
 import {
   Dialog,
   DialogContent,
@@ -43,11 +39,12 @@ interface AccommodationCardProps {
 
 export function AccommodationCard({ match, index, onSave }: AccommodationCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const [saved, setSaved] = useState(false);
-
   const [showVideo, setShowVideo] = useState(false);
+  const { isSaved, toggle: toggleSaved } = useSavedListings();
+  const saved = isSaved(match.id);
+
   const handleSave = () => {
-    setSaved(!saved);
+    void toggleSaved(match.id);
     onSave?.(match.id);
   };
 
@@ -69,9 +66,7 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
     return (match && match[2].length === 11) ? match[2] : null;
   };
 
-  // Use a safer way to access potential video fields
-  const anyMatch = match as any;
-  const videoUrl = anyMatch.videoUrl || anyMatch.youtubeUrl || "";
+  const videoUrl = match.videoUrl ?? match.youtubeUrl ?? "";
   const youtubeId = getYouTubeId(videoUrl);
 
   const genderLabel = {
@@ -167,9 +162,14 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
           )}
         </div>
 
-        <span className="absolute top-3 right-3 px-2 py-1 rounded-lg bg-background/90 text-xs font-mono">
-          #{index + 1}
-        </span>
+        <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
+          <span className="px-2 py-1 rounded-lg bg-background/90 text-xs font-mono">
+            #{index + 1}
+          </span>
+          {match.matchScore != null && (
+            <MatchScoreCompact score={match.matchScore} className="shadow-sm" />
+          )}
+        </div>
 
         {/* Save Button */}
         <button
