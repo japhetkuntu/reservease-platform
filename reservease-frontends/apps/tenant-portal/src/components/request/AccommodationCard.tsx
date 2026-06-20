@@ -92,7 +92,7 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 + index * 0.1 }}
-      className="bg-card border border-border rounded-2xl overflow-hidden"
+      className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-[box-shadow,transform] duration-200"
     >
       {/* Image Carousel */}
       <div className="relative h-48 bg-muted group">
@@ -100,7 +100,10 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
           <motion.img
             key={currentImageIndex}
             src={match.images[currentImageIndex]}
-            alt={`${match.alias} - ${currentImageIndex + 1}`}
+            alt={`${match.alias} — photo ${currentImageIndex + 1} of ${match.images.length}`}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%2394a3b8' font-size='14' font-family='system-ui'%3ENo image%3C/text%3E%3C/svg%3E"; }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -114,15 +117,17 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
           <>
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+              aria-label="Previous photo"
+              className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+              aria-label="Next photo"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </button>
 
             {/* Indicators */}
@@ -142,9 +147,10 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
         {match.hasVideo && (
           <button
             onClick={(e) => { e.stopPropagation(); setShowVideo(true); }}
-            className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-primary-foreground text-xs font-bold hover:scale-105 transition-all"
+            aria-label={`Watch video tour for ${match.alias}`}
+            className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-primary-foreground text-xs font-bold hover:scale-105 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <Play className="h-3.5 w-3.5 fill-current" /> Watch Video
+            <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" /> Watch Video
           </button>
         )}
 
@@ -174,9 +180,11 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
         {/* Save Button */}
         <button
           onClick={(e) => { e.stopPropagation(); handleSave(); }}
-          className="absolute bottom-3 left-3 p-2 rounded-full bg-background/90 hover:bg-background transition-colors"
+          aria-label={saved ? "Remove from saved" : "Save this listing"}
+          aria-pressed={saved}
+          className="absolute bottom-3 left-3 p-2.5 rounded-full bg-background/90 hover:bg-background transition-all hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Heart className={`h-4 w-4 ${saved ? 'fill-destructive text-destructive' : 'text-muted-foreground'}`} />
+          <Heart className={`h-4 w-4 transition-colors ${saved ? 'fill-destructive text-destructive' : 'text-muted-foreground'}`} aria-hidden="true" />
         </button>
       </div>
 
@@ -289,7 +297,9 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
         {/* Expandable Section */}
         <button
           onClick={() => setExpanded(!expanded)}
-          className="w-full flex items-center justify-center gap-2 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          aria-expanded={expanded}
+          aria-controls={`card-details-${match.id}`}
+          className="w-full flex items-center justify-center gap-2 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset rounded-lg"
         >
           {expanded ? (
             <>
@@ -307,6 +317,7 @@ export function AccommodationCard({ match, index, onSave }: AccommodationCardPro
         <AnimatePresence>
           {expanded && (
             <motion.div
+              id={`card-details-${match.id}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}

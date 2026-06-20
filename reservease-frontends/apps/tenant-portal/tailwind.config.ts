@@ -22,6 +22,8 @@ export default {
         mono: ['Geist Mono', 'monospace'],
       },
       colors: {
+        // Brand dark panel color — used in CTA sections and auth left panel
+        "brand-dark": "#001a35",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

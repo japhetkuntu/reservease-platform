@@ -75,8 +75,8 @@ export function BottomNavigation() {
                 />
                 <span
                   className={cn(
-                    "text-[10px] font-500 transition-all duration-200",
-                    isActive && "font-600 text-[11px]"
+                    "text-[10px] font-medium transition-all duration-200",
+                    isActive && "font-semibold text-[11px]"
                   )}
                 >
                   {item.label}

@@ -23,7 +23,7 @@ export function Layout({ children, showFooter = true }: LayoutProps) {
   );
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden w-full relative">
+    <div className="min-h-dvh flex flex-col overflow-x-hidden w-full relative">
       <Navbar />
       <VerificationBanner />
       <main className={`flex-1 ${showBottomNav ? 'pb-[90px] md:pb-0' : ''}`}>{children}</main>

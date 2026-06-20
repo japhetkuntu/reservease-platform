@@ -14,7 +14,7 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
-  Construction
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -194,7 +194,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <PulseBackground />
-      <div className="relative min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-4.5rem)] pb-24">
+      <div className="relative min-h-[calc(100dvh-4rem)] md:min-h-[calc(100dvh-4.5rem)] pb-24">
         <div className="container py-8 md:py-16 max-w-5xl mx-auto px-4 relative z-10">
           {/* Hero Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
@@ -233,13 +233,23 @@ export default function Dashboard() {
             className="flex flex-col md:flex-row items-stretch md:items-center gap-4 mb-8"
           >
             <div className="relative flex-1 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground z-10" aria-hidden="true" />
               <Input
                 placeholder="Search by location, room type, or request ID..."
+                aria-label="Search requests"
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}
-                className="pl-12 h-12 bg-background border border-border hover:border-primary/50 focus:border-primary transition-all text-sm rounded-lg w-full"
+                className="pl-12 pr-10 h-12 bg-background border border-border hover:border-primary/50 focus:border-primary transition-all text-sm rounded-lg w-full"
               />
+              {localSearch && (
+                <button
+                  onClick={() => setLocalSearch("")}
+                  aria-label="Clear search"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                >
+                  <X className="h-4 w-4" aria-hidden="true" />
+                </button>
+              )}
             </div>
 
             <Button asChild size="lg" className="rounded-lg h-12 px-6 font-bold shrink-0">

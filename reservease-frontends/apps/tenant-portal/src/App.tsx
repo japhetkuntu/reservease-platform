@@ -25,6 +25,7 @@ import Install from "./pages/Install";
 import EditProfile from "./pages/EditProfile";
 import Security from "./pages/Security";
 import ForgotPassword from "./pages/ForgotPassword";
+import Explore from "./pages/Explore";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ const App = () => (
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/security" element={<Security />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/explore" element={<Explore />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

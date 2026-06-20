@@ -361,6 +361,44 @@ export interface ApiNotification {
   requestId?: string;
 }
 
+// ─── Browse / Free Listings ──────────────────────────────────
+
+export interface ApiListing {
+  id: string;
+  alias: string;
+  price: string;
+  priceUnit?: string;
+  roomType: string;
+  category?: string;
+  genderPolicy?: string;
+  images: string[];
+  isVerified: boolean;
+  available: boolean;
+  location: string;
+  googleMapsUrl?: string;
+  backupPower?: string;
+  waterReliability?: string;
+  isInclusive?: boolean;
+  bathroomType?: string;
+  campusProximity?: string;
+  nearestCampus?: string;
+  momoAccepted?: boolean;
+  amenities?: string[];
+  createdAt?: string;
+}
+
+export interface BrowseParams {
+  location?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  roomType?: string;
+  category?: string;
+  genderPolicy?: string;
+  nearestCampus?: string;
+  page?: number;
+  limit?: number;
+}
+
 // ─── Pagination ──────────────────────────────────────────────
 
 export interface PaginatedResponse<T> {

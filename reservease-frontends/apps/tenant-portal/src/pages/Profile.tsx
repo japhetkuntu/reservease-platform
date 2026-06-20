@@ -95,7 +95,7 @@ export default function Profile() {
 
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-4rem)] pb-24">
+      <div className="min-h-[calc(100dvh-4rem)] pb-24">
         <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container h-14 flex items-center justify-between max-w-2xl mx-auto px-4">
             <Link

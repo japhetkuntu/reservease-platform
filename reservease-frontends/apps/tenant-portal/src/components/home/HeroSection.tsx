@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, MapPin, Shield, Star, Users, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const trustItems = [
   { icon: Users, label: "500+ housed", sub: "across Ghana" },
@@ -8,22 +8,36 @@ const trustItems = [
   { icon: Shield, label: "Verified only", sub: "every listing" },
 ];
 
+const CATEGORY_PILLS = [
+  { label: "All", value: "" },
+  { label: "Hostels", value: "hostel" },
+  { label: "Apartments", value: "apartment" },
+  { label: "Hotels", value: "hotel-room" },
+  { label: "Self-Contain", value: "self-contain" },
+];
+
 export function HeroSection() {
   const navigate = useNavigate();
+  const [locationInput, setLocationInput] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = locationInput.trim();
+    navigate(q ? `/explore?location=${encodeURIComponent(q)}` : "/explore");
+  };
+
+  const handleCategory = (value: string) => {
+    navigate(value ? `/explore?category=${encodeURIComponent(value)}` : "/explore");
+  };
 
   return (
-    <section className="relative min-h-[100svh] md:min-h-screen flex flex-col justify-center overflow-hidden bg-background pt-0">
+    <section className="relative flex flex-col justify-center overflow-hidden bg-background pt-0 pb-8 md:pb-0">
 
-      {/* ── Atmospheric background — pure CSS, no image, no Framer opacity ── */}
+      {/* ── Atmospheric background ── */}
       <div className="pointer-events-none select-none absolute inset-0 overflow-hidden">
-        {/* warm left blob */}
         <div className="absolute -left-40 top-0 h-[700px] w-[700px] rounded-full bg-primary/8 blur-[120px]" />
-        {/* cool right blob */}
         <div className="absolute -right-40 bottom-0 h-[600px] w-[600px] rounded-full bg-blue-500/6 blur-[120px]" />
-        {/* centre glow */}
         <div className="absolute left-1/2 top-1/3 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[100px]" />
-
-        {/* subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
           style={{
@@ -35,10 +49,10 @@ export function HeroSection() {
       </div>
 
       {/* ── Main content ── */}
-      <div className="container mx-auto relative z-10 flex flex-col items-center text-center px-4 sm:px-6 py-16 md:py-0">
+      <div className="container mx-auto relative z-10 flex flex-col items-center text-center px-4 sm:px-6 py-14 md:py-20">
 
         {/* Eyebrow pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-background/80 backdrop-blur-sm mb-8 md:mb-10 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-background/80 backdrop-blur-sm mb-7 shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-primary" />
           <span className="text-xs md:text-sm font-medium text-foreground tracking-wide">
             Ghana's smartest accommodation search
@@ -46,67 +60,72 @@ export function HeroSection() {
         </div>
 
         {/* Headline */}
-        <h1 className="max-w-4xl mx-auto text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-foreground leading-[1.05] tracking-tight mb-6 md:mb-7 px-2">
-          Finding your next
-          <br className="hidden sm:block" />
-          <span className="sm:hidden"> </span>
-          place{" "}
+        <h1 className="max-w-3xl mx-auto text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.06] tracking-tight mb-5 md:mb-6 px-2">
+          Find your perfect place{" "}
           <span className="relative inline-block">
-            <span className="relative z-10 text-primary">should feel</span>
-            {/* underline accent */}
+            <span className="relative z-10 text-primary">in Ghana</span>
             <span className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-primary/30" />
           </span>
-          {" "}like magic.
         </h1>
 
         {/* Sub-headline */}
-        <p className="max-w-xl mx-auto text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 md:mb-12 px-4">
-          Tell us what you need. We search verified listings and bring you up to 3
-          perfect matches — within 24 hours.
+        <p className="max-w-lg mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed mb-8 px-4">
+          Browse verified listings for free, or let our AI find your top 3 matches in 24 hours.
         </p>
 
         {/* ── Search bar ── */}
-        <div className="w-full max-w-2xl mx-auto mb-8 px-2 sm:px-0">
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => navigate("/search?for=self")}
-            onKeyDown={(e) => e.key === "Enter" && navigate("/search?for=self")}
-            className="group relative flex items-center h-[68px] sm:h-20 bg-background border-2 border-border hover:border-primary/60 rounded-2xl cursor-pointer overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md"
-          >
-            <div className="flex-1 flex items-center px-5 sm:px-7 gap-4">
+        <form onSubmit={handleSearch} className="w-full max-w-2xl mx-auto mb-5 px-2 sm:px-0">
+          <div className="relative flex items-center h-[60px] sm:h-[68px] bg-background border-2 border-border hover:border-primary/60 focus-within:border-primary/60 rounded-2xl overflow-hidden transition-all duration-200 shadow-sm hover:shadow-md">
+            <div className="flex-1 flex items-center px-4 sm:px-6 gap-3">
               <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-              <div className="flex flex-col items-start text-left min-w-0">
-                <span className="text-sm sm:text-base font-semibold text-foreground truncate w-full">
-                  Where do you want to live?
-                </span>
-                <span className="text-xs sm:text-sm text-muted-foreground truncate w-full">
-                  Tarkwa · Accra · Kumasi · any location
-                </span>
-              </div>
+              <input
+                type="text"
+                value={locationInput}
+                onChange={(e) => setLocationInput(e.target.value)}
+                placeholder="Where do you want to live? Accra · Kumasi · Tarkwa…"
+                className="flex-1 bg-transparent text-sm sm:text-base text-foreground placeholder:text-muted-foreground outline-none font-medium"
+                aria-label="Search by location"
+              />
             </div>
-
-            <div className="pr-3 sm:pr-4 flex-shrink-0">
-              <div className="flex items-center justify-center h-11 w-11 sm:h-13 sm:w-13 rounded-xl bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
-                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-0.5" />
-              </div>
+            <div className="pr-2.5 sm:pr-3 flex-shrink-0">
+              <button
+                type="submit"
+                className="flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                aria-label="Browse listings"
+              >
+                <ArrowRight className="h-5 w-5" />
+              </button>
             </div>
           </div>
 
-          {/* Delegated search link */}
-          <p className="mt-4 text-sm text-muted-foreground text-center">
-            Searching for someone else?{" "}
+          {/* Smart Match link */}
+          <p className="mt-3 text-sm text-muted-foreground">
+            Want AI-ranked matches?{" "}
             <button
-              onClick={() => navigate("/search?for=others")}
+              type="button"
+              onClick={() => navigate("/search?for=self")}
               className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
             >
-              Search on their behalf →
+              Try Smart Match →
             </button>
           </p>
+        </form>
+
+        {/* ── Category pills ── */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {CATEGORY_PILLS.map((pill) => (
+            <button
+              key={pill.value}
+              onClick={() => handleCategory(pill.value)}
+              className="px-4 py-2 rounded-full border border-border bg-background/80 text-sm font-medium text-foreground hover:bg-muted/60 hover:border-border/70 transition-all duration-150 shadow-xs"
+            >
+              {pill.label}
+            </button>
+          ))}
         </div>
 
         {/* ── Trust strip ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
           {trustItems.map((item, i) => (
             <div
               key={i}
@@ -125,14 +144,6 @@ export function HeroSection() {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* ── Scroll hint ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-20 text-muted-foreground">
-        <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-border flex items-start justify-center pt-1.5">
-          <div className="w-0.5 h-2 rounded-full bg-muted-foreground animate-bounce" />
         </div>
       </div>
     </section>

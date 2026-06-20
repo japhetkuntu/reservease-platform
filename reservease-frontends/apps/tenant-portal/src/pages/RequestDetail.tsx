@@ -175,7 +175,7 @@ export default function RequestDetail() {
   if (!request || !effectiveState) {
     return (
       <Layout>
-        <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-4">
+        <div className="min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center p-4">
           <div className="text-center max-w-sm flex flex-col items-center gap-4">
             <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center">
               <AlertCircle className="h-6 w-6 text-muted-foreground" />
@@ -203,7 +203,7 @@ export default function RequestDetail() {
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-4rem)] pb-24">
+      <div className="min-h-[calc(100dvh-4rem)] pb-24">
 
         {/* ── Header ── */}
         <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
@@ -238,7 +238,9 @@ export default function RequestDetail() {
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
             <button
               onClick={() => setIsPreferencesExpanded(!isPreferencesExpanded)}
-              className="w-full flex items-center justify-between px-5 py-4 hover:bg-muted/30 transition-colors"
+              aria-expanded={isPreferencesExpanded}
+              aria-controls="preferences-panel"
+              className="w-full flex items-center justify-between px-5 py-4 hover:bg-muted/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
             >
               <div className="flex flex-col items-start gap-1.5 min-w-0">
                 <div className="flex items-center gap-2">
@@ -267,6 +269,7 @@ export default function RequestDetail() {
             <AnimatePresence>
               {isPreferencesExpanded && (
                 <motion.div
+                  id="preferences-panel"
                   initial={{ height: 0, opacity: 0.6 }}
                   animate={{ height: "auto", opacity: 1, transition: { duration: 0.2 } }}
                   exit={{ height: 0, opacity: 0.6, transition: { duration: 0.15 } }}
@@ -464,15 +467,19 @@ export default function RequestDetail() {
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-foreground/40 p-4"
                 onClick={() => setShowFeedback(false)}
+                role="presentation"
               >
                 <motion.div
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="feedback-dialog-title"
                   initial={{ y: 60, opacity: 0.6 }}
                   animate={{ y: 0, opacity: 1, transition: { duration: 0.2 } }}
                   exit={{ y: 60, opacity: 0.6, transition: { duration: 0.15 } }}
                   onClick={(e) => e.stopPropagation()}
                   className="w-full max-w-md bg-background rounded-t-2xl sm:rounded-2xl p-7 border border-border shadow-xl"
                 >
-                  <h3 className="text-xl font-bold text-foreground mb-2">How was your experience?</h3>
+                  <h3 id="feedback-dialog-title" className="text-xl font-bold text-foreground mb-2">How was your experience?</h3>
                   <p className="text-sm text-muted-foreground mb-7">Rate your search results and share your experience.</p>
 
                   <div className="flex justify-center gap-2 mb-7">

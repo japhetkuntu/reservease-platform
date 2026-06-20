@@ -43,7 +43,7 @@ export default function Notifications() {
 
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-4rem)] pb-24">
+      <div className="min-h-[calc(100dvh-4rem)] pb-24">
         <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container h-14 flex items-center justify-between max-w-2xl mx-auto px-4">
             <Link
@@ -83,15 +83,18 @@ export default function Notifications() {
                 </div>
               ) : (
                 notifications.map((notif) => (
-                  <div
+                  <button
                     key={notif.id}
                     className={cn(
-                      "p-4 rounded-xl border transition-colors cursor-pointer",
+                      "w-full text-left p-4 rounded-xl border transition-colors",
                       notif.isRead
                         ? "bg-card border-border/50 hover:bg-muted/30"
-                        : "bg-primary/[0.03] border-primary/20 hover:bg-primary/[0.05]"
+                        : "bg-primary/[0.03] border-primary/20 hover:bg-primary/[0.05]",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     )}
                     onClick={() => handleMarkAsRead(notif.id, notif.isRead)}
+                    aria-pressed={notif.isRead}
+                    aria-label={`${notif.title}${!notif.isRead ? " — unread" : ""}`}
                   >
                     <div className="flex items-start gap-4">
                       <div className={cn(
@@ -123,7 +126,7 @@ export default function Notifications() {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))
               )}
             </div>

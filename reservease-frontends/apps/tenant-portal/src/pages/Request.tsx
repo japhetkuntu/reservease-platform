@@ -145,7 +145,7 @@ export default function Request() {
 
   return (
     // FIX: plain div, no motion.div with opacity:0
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
 
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">

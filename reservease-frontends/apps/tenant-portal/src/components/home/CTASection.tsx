@@ -13,7 +13,7 @@ export function CTASection() {
         <div className="max-w-5xl mx-auto">
 
           {/* ── Main CTA block ── */}
-          <div className="relative rounded-3xl bg-[#001a35] overflow-hidden px-8 sm:px-14 md:px-20 py-16 md:py-20">
+          <div className="relative rounded-3xl bg-brand-dark overflow-hidden px-8 sm:px-14 md:px-20 py-16 md:py-20">
 
             {/* Atmospheric blobs inside the dark card */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -48,7 +48,7 @@ export function CTASection() {
               <div className="flex flex-col gap-4 flex-shrink-0 min-w-[200px]">
                 <Button
                   size="lg"
-                  className="h-13 px-8 text-base font-semibold rounded-xl bg-white text-[#001a35] hover:bg-white/90 transition-all w-full"
+                  className="h-13 px-8 text-base font-semibold rounded-xl bg-white text-brand-dark hover:bg-white/90 transition-all w-full"
                   asChild
                 >
                   <Link to="/search">

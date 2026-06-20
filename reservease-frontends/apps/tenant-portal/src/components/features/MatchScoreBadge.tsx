@@ -7,7 +7,7 @@
  *  - Listing detail page (expanded variant with breakdown bars)
  */
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,30 @@ function scoreLabel(score: number): string {
   return "Weak match";
 }
 
+// ── Count-up hook ─────────────────────────────────────────────────────────────
+
+function useCountUp(target: number, duration = 600): number {
+  const [value, setValue] = useState(0);
+  const raf = useRef<number>(0);
+  const prefersReducedMotion = typeof window !== "undefined"
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEffect(() => {
+    if (prefersReducedMotion) { setValue(target); return; }
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - elapsed, 3); // ease-out cubic
+      setValue(Math.round(eased * target));
+      if (elapsed < 1) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf.current);
+  }, [target, duration, prefersReducedMotion]);
+
+  return value;
+}
+
 // ── Compact badge (used on listing cards) ────────────────────────────────────
 
 interface CompactBadgeProps {
@@ -41,6 +65,7 @@ interface CompactBadgeProps {
 
 export function MatchScoreCompact({ score, className }: CompactBadgeProps) {
   const { ring, text, bg } = scoreColor(score);
+  const displayed = useCountUp(score, 500);
   return (
     <span
       className={cn(
@@ -50,7 +75,7 @@ export function MatchScoreCompact({ score, className }: CompactBadgeProps) {
       )}
       aria-label={`${score}% match — ${scoreLabel(score)}`}
     >
-      {score}% match
+      {displayed}% match
     </span>
   );
 }
@@ -107,6 +132,7 @@ export function MatchScoreExpanded({ score, breakdown, highlights, className }: 
   const [open, setOpen] = useState(false);
   const { ring, text, bg } = scoreColor(score);
   const label = scoreLabel(score);
+  const displayed = useCountUp(score, 600);
 
   const dimensionEntries = breakdown
     ? (Object.entries(breakdown) as [string, number | undefined][])
@@ -130,7 +156,7 @@ export function MatchScoreExpanded({ score, breakdown, highlights, className }: 
               ring, bg,
             )}
           >
-            <span className={cn("text-sm font-black tabular-nums leading-none", text)}>{score}</span>
+            <span className={cn("text-sm font-black tabular-nums leading-none", text)}>{displayed}</span>
           </div>
           <div className="text-left">
             <p className={cn("text-sm font-semibold", text)}>{label}</p>

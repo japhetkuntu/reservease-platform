@@ -433,7 +433,7 @@ export function SearchWizard({ onClose }: SearchWizardProps) {
   // ─── RENDER ────────────────────────────────────────────────────────────────
   return (
     // FIX: Plain div instead of motion.div with opacity:0 — no blank flash
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-dvh bg-background flex flex-col">
 
       {/* ── HEADER: new progress bar replaces tiny dots ── */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">

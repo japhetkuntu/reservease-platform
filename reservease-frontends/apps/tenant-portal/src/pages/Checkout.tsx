@@ -166,7 +166,7 @@ export default function Checkout() {
 
   if (request?.status === "waiting-payment-confirmation") {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-dvh bg-background flex flex-col items-center justify-center p-6 text-center">
         <motion.div
            initial={{ opacity: 0, scale: 0.95 }}
            animate={{ opacity: 1, scale: 1 }}
@@ -230,9 +230,9 @@ export default function Checkout() {
 
 
   return (
-    <div className="min-h-screen bg-muted/20 pb-20 selection:bg-primary/20">
+    <div className="min-h-dvh bg-muted/20 pb-20 selection:bg-primary/20">
       {/* Premium Header */}
-      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/70 transition-all">
+      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-sm supports-[backdrop-filter]:bg-background/70 transition-all">
         <div className="container max-w-6xl mx-auto flex items-center h-16 px-4 md:px-6">
           <button
             onClick={() => navigate(-1)}

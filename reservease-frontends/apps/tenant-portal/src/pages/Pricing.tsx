@@ -173,7 +173,7 @@ export default function Pricing() {
       {/* ── CTA ── */}
       <section className="py-16 md:py-20 bg-muted/30 border-t border-border">
         <div className="container px-4 sm:px-6 mx-auto">
-          <div className="max-w-5xl mx-auto rounded-2xl bg-[#001a35] overflow-hidden px-8 sm:px-14 md:px-16 py-14 md:py-16 relative">
+          <div className="max-w-5xl mx-auto rounded-2xl bg-brand-dark overflow-hidden px-8 sm:px-14 md:px-16 py-14 md:py-16 relative">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/20 blur-[70px]" />
               <div className="absolute -bottom-16 -left-8 w-48 h-48 rounded-full bg-blue-500/15 blur-[70px]" />
@@ -184,7 +184,7 @@ export default function Pricing() {
                 <p className="text-lg text-white/60 leading-relaxed">No account needed. GHS {totalFee.toFixed(2)} and 2 minutes is all it takes to get started.</p>
               </div>
               <div className="flex flex-col sm:flex-row md:flex-col gap-3 flex-shrink-0">
-                <Button size="lg" className="h-12 px-8 rounded-xl bg-white text-[#001a35] hover:bg-white/90 font-semibold text-sm whitespace-nowrap" asChild>
+                <Button size="lg" className="h-12 px-8 rounded-xl bg-white text-brand-dark hover:bg-white/90 font-semibold text-sm whitespace-nowrap" asChild>
                   <Link to="/search">Start searching <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
                 <Button variant="outline" size="lg" className="h-12 px-8 rounded-xl border-white/20 text-white bg-white/5 hover:bg-white/10 hover:text-white font-semibold text-sm whitespace-nowrap" asChild>

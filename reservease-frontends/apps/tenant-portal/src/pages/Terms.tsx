@@ -190,7 +190,7 @@ export default function Terms() {
             </div>
 
             {/* Start searching */}
-            <div className="bg-[#001a35] rounded-2xl p-8 flex flex-col relative overflow-hidden">
+            <div className="bg-brand-dark rounded-2xl p-8 flex flex-col relative overflow-hidden">
               <div className="pointer-events-none absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/20 blur-[50px]" />
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-5 relative z-10">
                 <Sparkles className="h-5 w-5 text-white/80" />

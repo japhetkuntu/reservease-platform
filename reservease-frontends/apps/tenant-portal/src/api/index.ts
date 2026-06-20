@@ -12,6 +12,7 @@ export { authApi } from "./auth";
 export { requestsApi } from "./requests";
 export { paymentsApi } from "./payments";
 export { favoritesApi } from "./favorites";
+export { listingsApi } from "./listings";
 export { notificationsApi } from "./notifications";
 
 

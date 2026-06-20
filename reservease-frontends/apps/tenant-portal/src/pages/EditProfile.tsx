@@ -115,14 +115,14 @@ export default function EditProfile() {
 
   if (fetching) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-dvh flex items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       <header className="p-4 md:p-6 flex items-center gap-4">
         <button onClick={() => navigate(-1)} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft size={20} />
@@ -144,7 +144,7 @@ export default function EditProfile() {
               className="relative group cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className="h-28 w-28 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden border-4 border-background group-hover:bg-primary/20 transition-all duration-500\">
+              <div className="h-28 w-28 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden border-4 border-background group-hover:bg-primary/20 transition-all duration-500">
                 {imagePreview || (user as any)?.profilePicture ? (
                   <img
                     src={imagePreview || (user as any)?.profilePicture}
@@ -161,7 +161,7 @@ export default function EditProfile() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-2 -right-2 h-10 w-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center border-4 border-background group-hover:scale-110 transition-transform\">
+              <div className="absolute -bottom-2 -right-2 h-10 w-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center border-4 border-background group-hover:scale-110 transition-transform">
                 <Camera size={18} />
               </div>
             </div>

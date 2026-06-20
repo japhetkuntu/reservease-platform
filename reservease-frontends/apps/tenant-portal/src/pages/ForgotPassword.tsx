@@ -93,7 +93,7 @@ export default function ForgotPassword() {
   const Icon = meta.icon;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       {/* Header */}
       {step !== "done" && (
         <header className="flex items-center px-6 py-5 border-b border-border">

@@ -53,7 +53,7 @@ export default function Login() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-dvh flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
             <CheckCircle2 className="w-8 h-8 text-primary" />
@@ -66,10 +66,10 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-dvh flex">
 
       {/* ── Left panel: brand ── */}
-      <div className="hidden lg:flex lg:w-[44%] xl:w-[40%] flex-col justify-between bg-[#001a35] px-12 py-10 relative overflow-hidden flex-shrink-0">
+      <div className="hidden lg:flex lg:w-[44%] xl:w-[40%] flex-col justify-between bg-brand-dark px-12 py-10 relative overflow-hidden flex-shrink-0">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-primary/20 blur-[80px]" />
           <div className="absolute -bottom-20 -right-10 w-64 h-64 rounded-full bg-blue-500/15 blur-[80px]" />
@@ -108,7 +108,7 @@ export default function Login() {
         <div className="relative z-10">
           <div className="flex -space-x-2 mb-3">
             {[11, 12, 13, 14, 15].map((n) => (
-              <img key={n} src={`https://i.pravatar.cc/40?img=${n}`} alt="" className="w-8 h-8 rounded-full border-2 border-[#001a35] object-cover" />
+              <img key={n} src={`https://i.pravatar.cc/40?img=${n}`} alt="" className="w-8 h-8 rounded-full border-2 border-brand-dark object-cover" />
             ))}
           </div>
           <p className="text-xs text-white/50">Join 500+ people who found their home through ReservEase</p>
